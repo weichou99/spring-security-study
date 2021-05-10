@@ -1,0 +1,19 @@
+於執行期間，修改spring security的url權限設定。
+主要概念是取得FilterSecurityInterceptor，將它的SecurityMetadataSource用新建新的取代。
+
+SecurityMetadataSource是使用ExpressionBasedFilterInvocationSecurityMetadataSource。
+
+建立ExpressionBasedFilterInvocationSecurityMetadataSource，會需要AntPathRequestMatcher，跟Collection<ConfigAttribute>。
+
+AntPathRequestMatcher可直接用new語法建立。傳入url pattern。
+
+Collection<ConfigAttribute>可用SecurityConfig.createList(...)建立，傳入SecurityExpressionRoot支援的Spring EL。
+
+
+
+
+
+一開始api /printBeanDefinitiionNames只有test01這個帳號能夠有權限呼叫。
+admin不能呼叫。
+
+呼叫/updateSecurityMetadataSource api，修改權限設定。讓admin可以呼叫。
